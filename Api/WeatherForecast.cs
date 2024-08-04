@@ -1,4 +1,4 @@
-namespace TechChallenge5
+namespace Api
 {
 	public class WeatherForecast
 	{
