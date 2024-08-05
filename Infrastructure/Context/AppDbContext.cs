@@ -6,9 +6,16 @@ namespace Infrastructure.Context;
 
 public class AppDbContext : DbContext
 {
-	public AppDbContext(DbContextOptions options) : base(options) { }
+	private readonly IConfiguration _configuration;
+	public AppDbContext(DbContextOptions options, IConfiguration configuration) : base(options)
+	{
+		_configuration = configuration;
+	}
 
-	public AppDbContext() { }
+	public AppDbContext(IConfiguration configuration)
+	{
+		_configuration = configuration;
+	}
 
 	public DbSet<User> User { get; set; }
 	public DbSet<Ativo> Ativo { get; set; }
@@ -17,8 +24,9 @@ public class AppDbContext : DbContext
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		var connectionString = "";
+		var connectionString = _configuration.GetConnectionString("DefaultConnection");
 		optionsBuilder.UseSqlServer(connectionString);
+		optionsBuilder.EnableSensitiveDataLogging();
 		base.OnConfiguring(optionsBuilder);
 	}
 

@@ -1,12 +1,13 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
+using Infrastructure.Context;
 
 namespace Infrastructure.Repos;
 
-public class UserRepository : IUserRepository
+public class UserRepository(AppDbContext context) : IUserRepository
 {
-	public ValueTask<User> Create(User user)
+	public async ValueTask Create(User user)
 	{
-		throw new NotImplementedException();
+		await context.User.AddAsync(user);
 	}
 }

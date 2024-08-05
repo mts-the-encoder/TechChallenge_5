@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Infrastructure.Context;
+using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ public static class DependencyInjection
 		AddRepositories(services);
 		AddServices(services);
 		AddContext(services, configuration);
+		AddUnitOfWork(services);
 
 		return services;
 	}
@@ -22,6 +24,12 @@ public static class DependencyInjection
 		services.AddDbContext<AppDbContext>(options =>
 			options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 	}
+
+	private static void AddUnitOfWork(IServiceCollection services)
+	{
+		services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+	}
+
 
 	private static void AddRepositories(IServiceCollection services)
 	{
