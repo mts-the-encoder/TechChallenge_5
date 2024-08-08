@@ -15,6 +15,7 @@ public static class DependencyInjection
 		AddServices(services);
 		AddContext(services, configuration);
 		AddUnitOfWork(services);
+		AddMediatr(services);
 
 		return services;
 	}
@@ -29,7 +30,6 @@ public static class DependencyInjection
 	{
 		services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 	}
-
 
 	private static void AddRepositories(IServiceCollection services)
 	{
@@ -55,5 +55,11 @@ public static class DependencyInjection
 			foreach (var inter in interfaces)
 				services.AddScoped(inter, type);
 		}
+	}
+
+	private static void AddMediatr(IServiceCollection services)
+	{
+		var myHandlers = AppDomain.CurrentDomain.Load("Application");
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(myHandlers));
 	}
 }

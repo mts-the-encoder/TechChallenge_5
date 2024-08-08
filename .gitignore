@@ -258,6 +258,14 @@ orleans.codegen.cs
 # RIA/Silverlight projects
 Generated_Code/
 
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+launchSettings.json
+**/Properties/launchSettings.json
+
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. Backup files are not needed,
 # because we have git ;-)

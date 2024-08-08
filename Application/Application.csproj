@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mapper\" />
     <Folder Include="Interfaces\Token\" />
-    <Folder Include="Services\User\Commands\" />
     <Folder Include="Services\User\Handlers\" />
     <Folder Include="Services\User\Queries\" />
   </ItemGroup>
