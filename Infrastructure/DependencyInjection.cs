@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.Interfaces;
 using Application.Services.User;
+using Application.Services.Portifolio;
 
 namespace Infrastructure;
 
@@ -43,6 +44,7 @@ public static class DependencyInjection
 	private static void AddServices(IServiceCollection services)
 	{
 		services.AddScoped<IUserService, UserService>();
+		services.AddScoped<IPortifolioService, PortifolioService>();
 	}
 
 	private static void AddMediatr(IServiceCollection services)
