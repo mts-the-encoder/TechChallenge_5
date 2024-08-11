@@ -12,5 +12,6 @@ public class AutoMapperConfig : Profile
 		//User
 		CreateMap<UserDto, UserCreateCommand>().ReverseMap();
 		CreateMap<UserDto, User>().ReverseMap();
+		CreateMap<UserCreateCommand, User>().ReverseMap();
 	}
 }

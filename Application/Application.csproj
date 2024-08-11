@@ -8,12 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Interfaces\Token\" />
-    <Folder Include="Services\User\Handlers\" />
     <Folder Include="Services\User\Queries\" />
   </ItemGroup>
 

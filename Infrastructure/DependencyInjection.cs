@@ -1,9 +1,10 @@
-﻿using System.Reflection;
-using Infrastructure.Context;
-using Infrastructure.UnitOfWork;
+﻿using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using Application.Interfaces;
+using Application.Services.User;
 
 namespace Infrastructure;
 
@@ -14,7 +15,7 @@ public static class DependencyInjection
 		AddRepositories(services);
 		AddServices(services);
 		AddContext(services, configuration);
-		AddUnitOfWork(services);
+		
 		AddMediatr(services);
 
 		return services;
@@ -24,11 +25,6 @@ public static class DependencyInjection
 	{
 		services.AddDbContext<AppDbContext>(options =>
 			options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-	}
-
-	private static void AddUnitOfWork(IServiceCollection services)
-	{
-		services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 	}
 
 	private static void AddRepositories(IServiceCollection services)
@@ -46,15 +42,7 @@ public static class DependencyInjection
 
 	private static void AddServices(IServiceCollection services)
 	{
-		var types = Assembly.GetExecutingAssembly().GetTypes()
-			.Where(x => x.GetInterfaces().Any(i => i.Name.EndsWith("Service")));
-
-		foreach (var type in types)
-		{
-			var interfaces = type.GetInterfaces();
-			foreach (var inter in interfaces)
-				services.AddScoped(inter, type);
-		}
+		services.AddScoped<IUserService, UserService>();
 	}
 
 	private static void AddMediatr(IServiceCollection services)

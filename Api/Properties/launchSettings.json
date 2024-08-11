@@ -15,9 +15,10 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5247",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "CONNECTION_STRING": "Data Source=IdeaPadGaming3i;Database=TC5;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=True; TrustServerCertificate=True;"
+        }
     },
     "https": {
       "commandName": "Project",
