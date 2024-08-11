@@ -1,4 +1,5 @@
-﻿using Application.Dto;
+﻿using Application.Communication.Requests;
+using Application.Communication.Responses;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,7 @@ public class UserController : TechChallengeController
 	}
 
 	[HttpPost]
-	public async Task<ActionResult<UserDto>> Create(UserDto user)
+	public async Task<ActionResult<UserResponse>> Create(UserRequest user)
 	{
 		await _service.Create(user);
 
@@ -22,7 +23,7 @@ public class UserController : TechChallengeController
 	}
 
 	[HttpGet("{id}")]
-	public async Task<ActionResult<UserDto>> GetById(Guid id)
+	public async Task<ActionResult<UserResponse>> GetById(Guid id)
 	{
 		var response = await _service.GetById(id);
 

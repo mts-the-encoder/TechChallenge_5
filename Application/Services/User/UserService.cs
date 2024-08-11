@@ -1,4 +1,5 @@
-﻿using Application.Dto;
+﻿using Application.Communication.Requests;
+using Application.Communication.Responses;
 using Application.Interfaces;
 using Application.Services.User.Commands;
 using Application.Services.User.Queries;
@@ -18,16 +19,16 @@ public class UserService : IUserService
 		_mapper = mapper;
 	}
 
-	public async Task<UserDto> Create(UserDto productDto)
+	public async Task<UserResponse> Create(UserRequest request)
 	{
-		var product = _mapper.Map<UserCreateCommand>(productDto);
+		var product = _mapper.Map<UserCreateCommand>(request);
 
 		var response = await _mediator.Send(product);
 
-		return _mapper.Map<UserDto>(response);
+		return _mapper.Map<UserResponse>(response);
 	}
 
-	public async Task<UserDto> GetById(Guid id)
+	public async Task<UserResponse> GetById(Guid id)
 	{
 		var user = new GetUserByIdQuery(id);
 
@@ -35,6 +36,6 @@ public class UserService : IUserService
 
 		var result = await _mediator.Send(user);
 
-		return _mapper.Map<UserDto>(result);
+		return _mapper.Map<UserResponse>(result);
 	}
 }

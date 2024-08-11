@@ -1,9 +1,10 @@
-﻿using Application.Dto;
+﻿using Application.Communication.Requests;
+using Application.Communication.Responses;
 
 namespace Application.Interfaces;
 
 public interface IUserService
 {
-	Task<UserDto> Create(UserDto productDto);
-	Task<UserDto> GetById(Guid id);
+	Task<UserResponse> Create(UserRequest request);
+	Task<UserResponse> GetById(Guid id);
 }
