@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Token\" />
-    <Folder Include="Services\User\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

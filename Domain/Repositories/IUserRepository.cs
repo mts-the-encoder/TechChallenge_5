@@ -5,4 +5,5 @@ namespace Domain.Repositories;
 public interface IUserRepository
 {
 	ValueTask Create(User user);
+	ValueTask<User> GetById(Guid id);
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Dto;
 using Application.Interfaces;
 using Application.Services.User.Commands;
+using Application.Services.User.Queries;
 using AutoMapper;
 using MediatR;
 
@@ -24,5 +25,16 @@ public class UserService : IUserService
 		var response = await _mediator.Send(product);
 
 		return _mapper.Map<UserDto>(response);
+	}
+
+	public async Task<UserDto> GetById(Guid id)
+	{
+		var user = new GetUserByIdQuery(id);
+
+		if (user is null) throw new ApplicationException("$Entity could not be loaded.");
+
+		var result = await _mediator.Send(user);
+
+		return _mapper.Map<UserDto>(result);
 	}
 }

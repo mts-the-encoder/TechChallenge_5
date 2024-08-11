@@ -20,4 +20,13 @@ public class UserController : TechChallengeController
 
 		return Created(string.Empty, user);
 	}
+
+	[HttpGet("{id}")]
+	public async Task<ActionResult<UserDto>> GetById(Guid id)
+	{
+		var response = await _service.GetById(id);
+
+		return Ok(response);
+	}
+
 }
