@@ -19,4 +19,11 @@ public class UserRepository(AppDbContext context) : IUserRepository
 			.AsNoTracking()
 			.FirstOrDefaultAsync(x => x.Id.Equals(id));
 	}
+
+	public async ValueTask<User> GetByEmailAndPassword(string email, string password)
+	{
+		return await context.User
+			.AsNoTracking()
+			.SingleOrDefaultAsync(x => x.Email.Equals(email) && x.Password.Equals(password));
+	}
 }
