@@ -14,12 +14,7 @@
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="FluentValidation" Version="11.9.2" />
     <PackageReference Include="MediatR" Version="12.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\Portifolio\Commands\" />
-    <Folder Include="Services\Portifolio\Handlers\" />
-    <Folder Include="Services\Portifolio\Queries\" />
+    <PackageReference Include="Serilog" Version="4.0.2-dev-02220" />
   </ItemGroup>
 
 </Project>

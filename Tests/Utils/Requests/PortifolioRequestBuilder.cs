@@ -1,4 +1,4 @@
-﻿using Application.Communication;
+﻿using Application.Communication.Requests;
 using Bogus;
 using Domain.Entities;
 

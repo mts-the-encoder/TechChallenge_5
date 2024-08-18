@@ -1,4 +1,4 @@
-﻿namespace Application.Communication;
+﻿namespace Application.Communication.Requests;
 
 public class PortifolioRequest
 {

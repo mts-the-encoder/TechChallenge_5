@@ -4,7 +4,10 @@ using Application.Interfaces;
 using Application.Services.User.Commands;
 using Application.Services.User.Queries;
 using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
+using Serilog;
 
 namespace Application.Services.User;
 
@@ -21,9 +24,11 @@ public class UserService : IUserService
 
 	public async Task<UserResponse> Create(UserRequest request)
 	{
-		var product = _mapper.Map<UserCreateCommand>(request);
+		await Validate(request);
 
-		var response = await _mediator.Send(product);
+		var user = _mapper.Map<UserCreateCommand>(request);
+
+		var response = await _mediator.Send(user);
 
 		return _mapper.Map<UserResponse>(response);
 	}
@@ -37,5 +42,29 @@ public class UserService : IUserService
 		var result = await _mediator.Send(user);
 
 		return _mapper.Map<UserResponse>(result);
+	}
+
+	private async Task Validate(UserRequest request)
+	{
+		var validator = new UserValidator();
+		var result = await validator.ValidateAsync(request);
+
+		var existsUser = await _mediator.Send(request.Email);
+
+		if (existsUser is null)
+			result.Errors.Add(new ValidationFailure("email", "Email já está registrado"));
+
+		if (!result.IsValid)
+		{
+			var errorMessages = result.Errors
+				.Select(error => error.ErrorMessage).ToList().FirstOrDefault();
+
+			var concatenatedErrors = string.Join("\n", errorMessages);
+
+			Log.ForContext("UserName", request.Email)
+				.Error($"{concatenatedErrors}");
+
+			throw new ValidationException(errorMessages);
+		}
 	}
 }
