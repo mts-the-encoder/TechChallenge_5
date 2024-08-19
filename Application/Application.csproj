@@ -17,4 +17,8 @@
     <PackageReference Include="Serilog" Version="4.0.2-dev-02220" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Ativo\Queries\" />
+  </ItemGroup>
+
 </Project>
