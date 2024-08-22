@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <Folder Include="Services\Ativo\Queries\" />
+    <Folder Include="Services\Transacao\Handlers\" />
+    <Folder Include="Services\Transacao\Queries\" />
   </ItemGroup>
 
 </Project>

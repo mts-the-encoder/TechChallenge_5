@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.Interfaces;
+using Application.Services.Ativo;
 using Application.Services.User;
 using Application.Services.Portifolio;
 
@@ -45,6 +46,8 @@ public static class DependencyInjection
 	{
 		services.AddScoped<IUserService, UserService>();
 		services.AddScoped<IPortifolioService, PortifolioService>();
+		services.AddScoped<IAtivoService, AtivoService>();
+		services.AddScoped<IAtivoService, AtivoService>();
 	}
 
 	private static void AddMediatr(IServiceCollection services)

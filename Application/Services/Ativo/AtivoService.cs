@@ -1,5 +1,6 @@
 ﻿using Application.Communication.Requests;
 using Application.Communication.Responses;
+using Application.Interfaces;
 using Application.Services.Ativo.Commands;
 using AutoMapper;
 using FluentValidation;
@@ -8,7 +9,7 @@ using Serilog;
 
 namespace Application.Services.Ativo;
 
-public class AtivoService
+public class AtivoService : IAtivoService
 {
 	private readonly IMediator _mediator;
 	private readonly IMapper _mapper;
