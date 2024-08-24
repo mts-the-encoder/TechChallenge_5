@@ -2,8 +2,8 @@
 
 public enum TipoAtivo
 {
-	Acoes,
-	Cripto,
-	Titulos,
-	Fii
+	Acoes = 0,
+	Cripto = 1,
+	Titulos = 2,
+	Fii = 3
 }

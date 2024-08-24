@@ -1,5 +1,5 @@
 ﻿namespace Application.Services.Transacao.Commands;
 
-public class TransacaoCreateCommand
+public class TransacaoCreateCommand : TransacaoCommand
 {
 }

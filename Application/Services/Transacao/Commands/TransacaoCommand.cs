@@ -1,6 +1,8 @@
-﻿namespace Application.Services.Transacao.Commands;
+﻿using MediatR;
 
-public class TransacaoCommand
+namespace Application.Services.Transacao.Commands;
+
+public class TransacaoCommand : IRequest<Domain.Entities.Transacao>
 {
 	public Guid PortifolioId { get; set; }
 	public Guid AtivoId { get; set; }
