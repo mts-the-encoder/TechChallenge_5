@@ -38,4 +38,6 @@ public class UserController : TechChallengeController
 		return Ok(response);
 	}
 
+	//Preciso provavelmente criar um getbyid da transacao e do portifolio, testes e aí ver essa questão
+	//dos testes
 }

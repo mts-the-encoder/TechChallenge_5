@@ -1,6 +1,4 @@
-﻿using Domain.Entities;
-using FluentAssertions;
-using FluentValidation;
+﻿using FluentAssertions;
 using Tests.Utils.Entities;
 
 namespace Tests.Domain.Tests;
