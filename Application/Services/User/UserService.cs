@@ -44,6 +44,17 @@ public class UserService : IUserService
 		return _mapper.Map<UserResponse>(result);
 	}
 
+	public async Task<LoginResponse> Login(LoginRequest request)
+	{
+		var user = new LoginQuery(request.Email, request.Password);
+
+		if (user is null) throw new ApplicationException("$Entity could not be loaded.");
+
+		var result = await _mediator.Send(user);
+
+		return result;
+	}
+
 	private async Task Validate(UserRequest request)
 	{
 		var validator = new UserValidator();

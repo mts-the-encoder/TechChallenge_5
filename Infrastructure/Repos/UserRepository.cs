@@ -32,4 +32,11 @@ public class UserRepository(AppDbContext context) : IUserRepository
 		return await context.User.AsNoTracking()
 			.AnyAsync(x => x.Email.Equals(email));
 	}
+
+	public async Task<User> Login(string email, string password)
+	{
+		return await context.User
+			.AsNoTracking()
+			.FirstOrDefaultAsync(x => x.Email.Equals(email) && x.Password.Equals(password));
+	}
 }

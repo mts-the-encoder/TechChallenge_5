@@ -22,6 +22,14 @@ public class UserController : TechChallengeController
 		return Created(string.Empty, user);
 	}
 
+	[HttpPost("/login")]
+	public async Task<ActionResult<LoginResponse>> Login(LoginRequest user)
+	{
+		var response = await _service.Login(user);
+
+		return Ok(response);
+	}
+
 	[HttpGet("{id}")]
 	public async Task<ActionResult<UserResponse>> GetById(Guid id)
 	{

@@ -8,6 +8,7 @@ using Application.Services.Ativo;
 using Application.Services.User;
 using Application.Services.Portifolio;
 using Application.Services.Transacao;
+using Application.Services.Token;
 
 namespace Infrastructure;
 
@@ -18,7 +19,7 @@ public static class DependencyInjection
 		AddRepositories(services);
 		AddServices(services);
 		AddContext(services, configuration);
-		
+		AddTokenJwt(services, configuration);
 		AddMediatr(services);
 
 		return services;
@@ -41,6 +42,14 @@ public static class DependencyInjection
 			foreach (var inter in interfaces)
 				services.AddScoped(inter, type);
 		}
+	}
+
+	private static void AddTokenJwt(IServiceCollection services, IConfiguration configuration)
+	{
+		var sectionLifeTime = configuration.GetValue<string>("Configurations:Jwt:LifeTimeInMinutes");
+		var sectionToken = configuration.GetValue<string>("Configurations:Jwt:TokenKey");
+
+		services.AddScoped(opt => new TokenService(int.Parse(sectionLifeTime), sectionToken));
 	}
 
 	private static void AddServices(IServiceCollection services)

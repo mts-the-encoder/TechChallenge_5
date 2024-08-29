@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Tests.Utils.Entities;
 
-namespace Tests.DomainTests;
+namespace Tests.Domain.Tests;
 
 public class UserTest
 {

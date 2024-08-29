@@ -7,4 +7,5 @@ public interface IUserService
 {
 	Task<UserResponse> Create(UserRequest request);
 	Task<UserResponse> GetById(Guid id);
+	Task<LoginResponse> Login(LoginRequest request);
 }
