@@ -16,5 +16,4 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Domain.
 	{
 		return await _repository.GetById(request.Id);
 	}
-
 }
