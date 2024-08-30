@@ -23,4 +23,20 @@ public class TransacaoController : TechChallengeController
 
 		return Created(string.Empty, transacao);
 	}
+
+	[HttpGet("{id}")]
+	public async Task<ActionResult<TransacaoResponse>> GetByIdAsync(Guid id)
+	{
+		var response = await _service.GetById(id);
+
+		return Ok(response);
+	}
+
+	[HttpGet("transacoes/{id}")]
+	public async Task<ActionResult<IEnumerable<TransacaoResponse>>> GetAllAsync(Guid id)
+	{
+		var response = await _service.GetAll(id);
+
+		return Ok(response);
+	}
 }

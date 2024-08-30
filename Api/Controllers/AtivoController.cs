@@ -23,4 +23,20 @@ public class AtivoController : TechChallengeController
 
 		return Created(string.Empty, portifolio);
 	}
+
+	[HttpGet("{id}")]
+	public async Task<ActionResult<AtivoResponse>> GetById(Guid id)
+	{
+		var response = await _service.GetById(id);
+
+		return Ok(response);
+	}
+
+	[HttpGet("ativos")]
+	public async Task<ActionResult<IEnumerable<AtivoResponse>>> GetAll()
+	{
+		var response = await _service.GetAll();
+
+		return Ok(response);
+	}
 }

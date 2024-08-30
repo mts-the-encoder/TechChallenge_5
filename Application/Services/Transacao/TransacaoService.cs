@@ -1,7 +1,10 @@
 ﻿using Application.Communication.Requests;
 using Application.Communication.Responses;
+using Application.Exceptions;
 using Application.Interfaces;
+using Application.Services.Portifolio.Queries;
 using Application.Services.Transacao.Commands;
+using Application.Services.Transacao.Queries;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -31,16 +34,27 @@ public class TransacaoService : ITransacaoService
 		return _mapper.Map<TransacaoResponse>(response);
 	}
 
-	public Task<TransacaoResponse> GetById(Guid id)
+	public async Task<TransacaoResponse> GetById(Guid id)
 	{
-		throw new NotImplementedException();
+		var transacao = new GetTransacaoByIdQuery(id);
+
+		if (transacao is null) throw new ValidationErrorsException(new List<string> { "Não encontrado" });
+
+		var result = await _mediator.Send(transacao);
+
+		return _mapper.Map<TransacaoResponse>(result);
 	}
 
-	public Task<IEnumerable<TransacaoResponse>> GetAll(Guid id)
+	public async Task<IEnumerable<TransacaoResponse>> GetAll(Guid id)
 	{
-		throw new NotImplementedException();
-	}
+		var transacoes = new GetAllTransacaoQuery(id);
 
+		if (transacoes is null) throw new ValidationErrorsException(new List<string> { "Não encontrado" });
+
+		var result = await _mediator.Send(transacoes);
+
+		return _mapper.Map<IEnumerable<TransacaoResponse>>(result);
+	}
 
 	private async Task Validate(TransacaoRequest request)
 	{

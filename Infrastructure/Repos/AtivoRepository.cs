@@ -20,7 +20,7 @@ public class AtivoRepository : IAtivoRepository
 		await _ctx.SaveChangesAsync();
 	}
 
-	public async ValueTask<IEnumerable<Ativo>> GetAll(Guid id)
+	public async ValueTask<IEnumerable<Ativo>> GetAll()
 	{
 		return await _ctx.Ativo
 			.AsNoTracking()
@@ -29,8 +29,8 @@ public class AtivoRepository : IAtivoRepository
 
 	public async ValueTask<Ativo> GetById(Guid id)
 	{
-		return (await _ctx.Ativo
+		return await _ctx.Ativo
 			.AsNoTracking()
-			.FirstOrDefaultAsync(x => x.Id.Equals(id)))!;
+			.FirstOrDefaultAsync(x => x.Id.Equals(id));
 	}
 }

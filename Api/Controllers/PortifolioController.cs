@@ -24,7 +24,7 @@ public class PortifolioController : TechChallengeController
 		return Created(string.Empty, portifolio);
 	}
 
-	[HttpGet("/{id}")]
+	[HttpGet("{id}")]
 	public async Task<ActionResult<PortifolioResponse>> GetByIdAsync(Guid id)
 	{
 		var response = await _service.GetById(id);
