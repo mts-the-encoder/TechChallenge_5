@@ -20,8 +20,6 @@ internal class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, Dom
 	{
 		var user = _mapper.Map<Domain.Entities.User>(request);
 
-		if (user is null) throw new ApplicationException($"Error creating entity");
-
 		await _repository.Create(user);
 
 		return user;

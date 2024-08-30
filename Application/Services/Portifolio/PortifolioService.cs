@@ -1,7 +1,9 @@
 ﻿using Application.Communication.Requests;
 using Application.Communication.Responses;
+using Application.Exceptions;
 using Application.Interfaces;
 using Application.Services.Portifolio.Commands;
+using Application.Services.Portifolio.Queries;
 using AutoMapper;
 using FluentValidation;
 using FluentValidation.Results;
@@ -19,6 +21,28 @@ public class PortifolioService : IPortifolioService
 	{
 		_mediator = mediator;
 		_mapper = mapper;
+	}
+
+	public async Task<PortifolioResponse> GetById(Guid id)
+	{
+		var portifolio = new GetPortifolioByIdQuery(id);
+
+		if (portifolio is null) throw new ValidationErrorsException(new List<string> { "Não encontrado" });
+
+		var result = await _mediator.Send(portifolio);
+
+		return _mapper.Map<PortifolioResponse>(result);
+	}
+
+	public async Task<IEnumerable<PortifolioResponse>> GetAll(Guid id)
+	{
+		var portifolios = new GetAllPortifolioQuery(id);
+
+		if (portifolios is null) throw new ValidationErrorsException(new List<string> { "Não encontrado" });
+
+		var result = await _mediator.Send(portifolios);
+
+		return _mapper.Map<IEnumerable<PortifolioResponse>>(result);
 	}
 
 	public async Task<PortifolioResponse> Create(PortifolioRequest request)

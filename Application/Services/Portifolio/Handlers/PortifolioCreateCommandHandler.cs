@@ -20,8 +20,6 @@ public class PortifolioCreateCommandHandler : IRequestHandler<PortifolioCreateCo
     {
         var portifolio = _mapper.Map<Domain.Entities.Portifolio>(request);
 
-        if (portifolio is null) throw new ApplicationException($"Error creating entity");
-
         await _repository.Create(portifolio);
 
         return portifolio;

@@ -1,8 +1,10 @@
 ﻿using Application.Communication.Responses;
+using Application.Exceptions;
 using Application.Services.Token;
 using Application.Services.User.Queries;
 using Domain.Repositories;
 using MediatR;
+using Serilog;
 
 namespace Application.Services.User.Handlers;
 
@@ -21,10 +23,17 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, LoginResponse>
 	{
 		var user = await _repository.Login(request.Email, request.Password);
 
-		return new LoginResponse()
+		if (user is not null)
 		{
-			Name = user.Name,
-			Token = _tokenService.GenerateToken(user.Email)
-		};
+			return new LoginResponse()
+			{
+				Name = user.Name,
+				Token = _tokenService.GenerateToken(user.Email)
+			};
+		}
+
+		Log.ForContext("UserName", request.Email)
+			.Error($"{"Login inválido"}");
+		throw new InvalidLoginException();
 	}
 }

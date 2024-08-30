@@ -31,6 +31,17 @@ public class TransacaoService : ITransacaoService
 		return _mapper.Map<TransacaoResponse>(response);
 	}
 
+	public Task<TransacaoResponse> GetById(Guid id)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<IEnumerable<TransacaoResponse>> GetAll(Guid id)
+	{
+		throw new NotImplementedException();
+	}
+
+
 	private async Task Validate(TransacaoRequest request)
 	{
 		var validator = new TransacaoValidator();

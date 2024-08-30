@@ -1,10 +1,12 @@
-﻿using Application.Communication.Requests;
+﻿using Api.Middleware;
+using Application.Communication.Requests;
 using Application.Communication.Responses;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
+[ServiceFilter(typeof(AuthenticatedUserAttribute))]
 public class TransacaoController : TechChallengeController
 {
 	private readonly ITransacaoService _service;

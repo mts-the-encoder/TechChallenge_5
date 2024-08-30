@@ -1,5 +1,6 @@
 ﻿using Application.Communication.Requests;
 using Application.Communication.Responses;
+using Domain.Entities;
 
 namespace Application.Interfaces;
 

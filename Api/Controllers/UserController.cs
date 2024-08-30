@@ -1,6 +1,8 @@
-﻿using Application.Communication.Requests;
+﻿using Api.Middleware;
+using Application.Communication.Requests;
 using Application.Communication.Responses;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -30,14 +32,12 @@ public class UserController : TechChallengeController
 		return Ok(response);
 	}
 
+	[ServiceFilter(typeof(AuthenticatedUserAttribute))]
 	[HttpGet("{id}")]
 	public async Task<ActionResult<UserResponse>> GetById(Guid id)
 	{
 		var response = await _service.GetById(id);
 
 		return Ok(response);
-	}
-
-	//Preciso provavelmente criar um getbyid da transacao e do portifolio, testes e aí ver essa questão
-	//dos testes
+	}	
 }

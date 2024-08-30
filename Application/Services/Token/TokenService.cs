@@ -26,7 +26,7 @@ public class TokenService
 	{
 		var claims = new List<Claim>()
 		{
-			new Claim(EmailAlias, userEmail)
+			new(EmailAlias, userEmail)
 		};
 
 		var tokenHandler = new JwtSecurityTokenHandler();
@@ -43,7 +43,7 @@ public class TokenService
 		return tokenHandler.WriteToken(token);
 	}
 
-	public ClaimsPrincipal ValidateToken(string token)
+	private ClaimsPrincipal ValidateToken(string token)
 	{
 		var tokenHandler = new JwtSecurityTokenHandler();
 

@@ -27,6 +27,13 @@ public class UserRepository(AppDbContext context) : IUserRepository
 			.SingleOrDefaultAsync(x => x.Email.Equals(email) && x.Password.Equals(password));
 	}
 
+	public async Task<User> GetByEmail(string email)
+	{
+		return await context.User
+			.AsNoTracking()
+			.SingleOrDefaultAsync(x => x.Email.Equals(email));
+	}
+
 	public async Task<bool> ExistsByEmail(string email)
 	{
 		return await context.User.AsNoTracking()

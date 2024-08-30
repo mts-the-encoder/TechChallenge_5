@@ -9,4 +9,5 @@ public interface IUserRepository
 	ValueTask<User> GetByEmailAndPassword(string email, string password);
 	Task<bool> ExistsByEmail(string email);
 	Task<User> Login(string email, string password);
+	Task<User> GetByEmail(string email);
 }

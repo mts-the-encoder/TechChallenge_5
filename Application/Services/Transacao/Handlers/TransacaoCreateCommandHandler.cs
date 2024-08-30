@@ -20,8 +20,6 @@ public class TransacaoCreateCommandHandler : IRequestHandler<TransacaoCreateComm
 	{
 		var transacao = _mapper.Map<Domain.Entities.Transacao>(request);
 
-		if (transacao is null) throw new ApplicationException($"Error creating entity");
-
 		await _repository.Create(transacao);
 
 		return transacao;

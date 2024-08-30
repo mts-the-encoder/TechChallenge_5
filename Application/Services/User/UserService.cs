@@ -1,5 +1,6 @@
 ﻿using Application.Communication.Requests;
 using Application.Communication.Responses;
+using Application.Exceptions;
 using Application.Interfaces;
 using Application.Services.User.Commands;
 using Application.Services.User.Queries;
@@ -37,7 +38,7 @@ public class UserService : IUserService
 	{
 		var user = new GetUserByIdQuery(id);
 
-		if (user is null) throw new ApplicationException("$Entity could not be loaded.");
+		if (user is null) throw new ValidationErrorsException(new List<string> { "Não encontrado" });
 
 		var result = await _mediator.Send(user);
 
@@ -48,7 +49,7 @@ public class UserService : IUserService
 	{
 		var user = new LoginQuery(request.Email, request.Password);
 
-		if (user is null) throw new ApplicationException("$Entity could not be loaded.");
+		if (user is null) throw new InvalidLoginException();
 
 		var result = await _mediator.Send(user);
 
@@ -68,14 +69,14 @@ public class UserService : IUserService
 		if (!result.IsValid)
 		{
 			var errorMessages = result.Errors
-				.Select(error => error.ErrorMessage).ToList().FirstOrDefault();
+				.Select(error => error.ErrorMessage).ToList();
 
 			var concatenatedErrors = string.Join("\n", errorMessages);
 
 			Log.ForContext("UserName", request.Email)
 				.Error($"{concatenatedErrors}");
 
-			throw new ValidationException(errorMessages);
+			throw new ValidationErrorsException(errorMessages);
 		}
 	}
 }

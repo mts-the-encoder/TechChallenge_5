@@ -1,6 +1,8 @@
-﻿using Application.Services.User.Queries;
+﻿using Application.Exceptions;
+using Application.Services.User.Queries;
 using Domain.Repositories;
 using MediatR;
+using Serilog;
 
 namespace Application.Services.User.Handlers;
 
@@ -14,6 +16,11 @@ public class ExistsByEmailQueryHandler : IRequestHandler<ExistsByEmailQuery, boo
 
 	public async Task<bool> Handle(ExistsByEmailQuery request, CancellationToken cancellationToken)
 	{
-		return await _repository.ExistsByEmail(request.Email);
+		var user = await _repository.ExistsByEmail(request.Email);
+
+		if (user)
+			throw new ValidationErrorsException("Usuário já existe");
+
+		return user;
 	}
 }

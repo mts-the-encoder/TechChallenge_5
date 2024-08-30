@@ -1,4 +1,5 @@
-﻿using Application.Services.Ativo.Commands;
+﻿using Application.Exceptions;
+using Application.Services.Ativo.Commands;
 using AutoMapper;
 using Domain.Repositories;
 using MediatR;
@@ -19,8 +20,6 @@ public class AtivoCreateCommandHandler : IRequestHandler<AtivoCreateCommand, Dom
 	public async Task<Domain.Entities.Ativo> Handle(AtivoCreateCommand request, CancellationToken cancellationToken)
 	{
 		var ativo = _mapper.Map<Domain.Entities.Ativo>(request);
-
-		if (ativo is null) throw new ApplicationException($"Error creating entity");
 
 		await _repository.Create(ativo);
 
