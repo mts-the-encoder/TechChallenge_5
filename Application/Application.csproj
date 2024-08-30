@@ -18,9 +18,4 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Ativo\Queries\" />
-    <Folder Include="Services\Transacao\Queries\" />
-  </ItemGroup>
-
 </Project>

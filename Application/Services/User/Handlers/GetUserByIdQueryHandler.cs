@@ -12,7 +12,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Domain.
 		_repository = repository;
 	}
 
-	public async Task<Domain.Entities.User?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+	public async Task<Domain.Entities.User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
 	{
 		return await _repository.GetById(request.Id);
 	}
