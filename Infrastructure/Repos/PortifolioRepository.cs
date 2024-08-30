@@ -18,4 +18,19 @@ public class PortifolioRepository(AppDbContext ctx) : IPortifolioRepository
 		return await ctx.Portifolio.AsNoTracking()
 			.AnyAsync(x => x.Name.Equals(name));
 	}
+
+	public async ValueTask<IEnumerable<Portifolio>> GetAll(Guid id)
+	{
+		return await ctx.Portifolio
+			.AsNoTracking()
+			.Where(x => x.UserId.Equals(id))
+			.ToListAsync();
+	}
+
+	public async ValueTask<Portifolio> GetById(Guid id)
+	{
+		return await ctx.Portifolio
+			.AsNoTracking()
+			.FirstOrDefaultAsync(x => x.Id.Equals(id));
+	}
 }

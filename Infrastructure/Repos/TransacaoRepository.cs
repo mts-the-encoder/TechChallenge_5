@@ -26,4 +26,12 @@ public class TransacaoRepository : ITransacaoRepository
 			.AsNoTracking()
 			.SingleOrDefaultAsync(x => x.Id.Equals(id));
 	}
+
+	public async ValueTask<IEnumerable<Transacao>> GetAll(Guid id)
+	{
+		return await _ctx.Transacao
+			.AsNoTracking()
+			.Where(x => x.PortifolioId.Equals(id))
+			.ToListAsync();
+	}
 }
