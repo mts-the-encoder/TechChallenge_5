@@ -1,8 +1,8 @@
 ﻿using Api.Middleware;
-using Application.Communication.Requests;
 using Application.Communication.Responses;
 using Application.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+using Application.Services.User.Commands;
+using Application.Services.User.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -17,7 +17,7 @@ public class UserController : TechChallengeController
 	}
 
 	[HttpPost]
-	public async Task<ActionResult<UserResponse>> Create(UserRequest user)
+	public async Task<ActionResult<UserResponse>> Create(UserCommand user)
 	{
 		await _service.Create(user);
 
@@ -25,7 +25,7 @@ public class UserController : TechChallengeController
 	}
 
 	[HttpPost("/login")]
-	public async Task<ActionResult<LoginResponse>> Login(LoginRequest user)
+	public async Task<ActionResult<LoginResponse>> Login(LoginQuery user)
 	{
 		var response = await _service.Login(user);
 

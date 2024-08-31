@@ -1,11 +1,11 @@
-﻿using Application.Communication.Requests;
-using Application.Communication.Responses;
+﻿using Application.Communication.Responses;
+using Application.Services.Portifolio.Commands;
 
 namespace Application.Interfaces;
 
 public interface IPortifolioService
 {
-	Task<PortifolioResponse> Create(PortifolioRequest request);
+	Task<PortifolioResponse> Create(PortifolioCommand request);
 
 	Task<PortifolioResponse> GetById(Guid id);
 	Task<IEnumerable<PortifolioResponse>> GetAll(Guid id);

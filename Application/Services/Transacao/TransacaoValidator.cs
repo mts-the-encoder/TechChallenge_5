@@ -1,9 +1,9 @@
-﻿using Application.Communication.Requests;
+﻿using Application.Services.Transacao.Commands;
 using FluentValidation;
 
 namespace Application.Services.Transacao;
 
-public class TransacaoValidator : AbstractValidator<TransacaoRequest>
+public class TransacaoValidator : AbstractValidator<TransacaoCommand>
 {
 	public TransacaoValidator()
 	{

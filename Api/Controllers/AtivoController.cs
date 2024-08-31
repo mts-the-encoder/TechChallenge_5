@@ -1,7 +1,7 @@
 ﻿using Api.Middleware;
-using Application.Communication.Requests;
 using Application.Communication.Responses;
 using Application.Interfaces;
+using Application.Services.Ativo.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -17,7 +17,7 @@ public class AtivoController : TechChallengeController
 	}
 
 	[HttpPost]
-	public async Task<ActionResult<AtivoResponse>> Create(AtivoRequest portifolio)
+	public async Task<ActionResult<AtivoResponse>> Create(AtivoCommand portifolio)
 	{
 		await _service.Create(portifolio);
 

@@ -1,9 +1,9 @@
-﻿using Application.Communication.Requests;
-using Application.Communication.Responses;
+﻿using Application.Communication.Responses;
 using Application.Services.Ativo.Commands;
 using Application.Services.Portifolio.Commands;
 using Application.Services.Transacao.Commands;
 using Application.Services.User.Commands;
+using Application.Services.User.Queries;
 using AutoMapper;
 using Domain.Entities;
 
@@ -16,31 +16,31 @@ public class AutoMapperConfig : Profile
 		//User
 		CreateMap<UserResponse, User>().ReverseMap();
 		CreateMap<UserResponse, UserCreateCommand>().ReverseMap();
-		CreateMap<UserRequest, UserCreateCommand>().ReverseMap();
-		CreateMap<UserRequest, User>().ReverseMap();
+		CreateMap<UserCommand, UserCreateCommand>().ReverseMap();
 		CreateMap<UserCreateCommand, User>().ReverseMap();
+		CreateMap<UserCommand, User>();
 		CreateMap<LoginResponse, User>().ReverseMap();
-		CreateMap<LoginRequest, User>().ReverseMap();
+		CreateMap<LoginQuery, User>().ReverseMap();
 
 		//Portifolio
+		CreateMap<PortifolioCommand, PortifolioCreateCommand>().ReverseMap();
+		CreateMap<PortifolioCommand, Portifolio>().ReverseMap();
 		CreateMap<PortifolioResponse, Portifolio>().ReverseMap();
 		CreateMap<PortifolioResponse, PortifolioCreateCommand>().ReverseMap();
-		CreateMap<PortifolioRequest, PortifolioCreateCommand>().ReverseMap();
-		CreateMap<PortifolioRequest, Portifolio>().ReverseMap();
 		CreateMap<PortifolioCreateCommand, Portifolio>().ReverseMap();
 
 		//Ativo
+		CreateMap<AtivoCommand, AtivoCreateCommand>().ReverseMap();
+		CreateMap<AtivoCommand, Ativo>().ReverseMap();
 		CreateMap<AtivoResponse, Ativo>().ReverseMap();
 		CreateMap<AtivoResponse, AtivoCreateCommand>().ReverseMap();
-		CreateMap<AtivoRequest, AtivoCreateCommand>().ReverseMap();
-		CreateMap<AtivoRequest, Ativo>().ReverseMap();
 		CreateMap<AtivoCreateCommand, Ativo>().ReverseMap();
 
 		//Transacao
+		CreateMap<TransacaoCommand, TransacaoCreateCommand>().ReverseMap();
+		CreateMap<TransacaoCommand, Transacao>().ReverseMap();
 		CreateMap<TransacaoResponse, Transacao>().ReverseMap();
 		CreateMap<TransacaoResponse, TransacaoCreateCommand>().ReverseMap();
-		CreateMap<TransacaoRequest, TransacaoCreateCommand>().ReverseMap();
-		CreateMap<TransacaoRequest, Transacao>().ReverseMap();
 		CreateMap<TransacaoCreateCommand, Transacao>().ReverseMap();
 	}
 }

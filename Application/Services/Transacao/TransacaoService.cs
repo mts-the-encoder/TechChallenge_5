@@ -1,8 +1,6 @@
-﻿using Application.Communication.Requests;
-using Application.Communication.Responses;
+﻿using Application.Communication.Responses;
 using Application.Exceptions;
 using Application.Interfaces;
-using Application.Services.Portifolio.Queries;
 using Application.Services.Transacao.Commands;
 using Application.Services.Transacao.Queries;
 using AutoMapper;
@@ -23,7 +21,7 @@ public class TransacaoService : ITransacaoService
 		_mapper = mapper;
 	}
 
-	public async Task<TransacaoResponse> Create(TransacaoRequest request)
+	public async Task<TransacaoResponse> Create(TransacaoCommand request)
 	{
 		await Validate(request);
 
@@ -56,7 +54,7 @@ public class TransacaoService : ITransacaoService
 		return _mapper.Map<IEnumerable<TransacaoResponse>>(result);
 	}
 
-	private async Task Validate(TransacaoRequest request)
+	private async Task Validate(TransacaoCommand request)
 	{
 		var validator = new TransacaoValidator();
 		var result = await validator.ValidateAsync(request);

@@ -1,9 +1,9 @@
-﻿using Application.Communication.Requests;
+﻿using Application.Services.Ativo.Commands;
 using FluentValidation;
 
 namespace Application.Services.Ativo;
 
-public class AtivoValidator : AbstractValidator<AtivoRequest>
+public class AtivoValidator : AbstractValidator<AtivoCommand>
 {
 	public AtivoValidator()
 	{

@@ -1,7 +1,7 @@
 ﻿using Api.Middleware;
-using Application.Communication.Requests;
 using Application.Communication.Responses;
 using Application.Interfaces;
+using Application.Services.Transacao.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -17,7 +17,7 @@ public class TransacaoController : TechChallengeController
 	}
 
 	[HttpPost]
-	public async Task<ActionResult<TransacaoResponse>> Create(TransacaoRequest transacao)
+	public async Task<ActionResult<TransacaoResponse>> Create(TransacaoCommand transacao)
 	{
 		await _service.Create(transacao);
 

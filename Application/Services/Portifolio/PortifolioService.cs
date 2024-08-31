@@ -1,5 +1,4 @@
-﻿using Application.Communication.Requests;
-using Application.Communication.Responses;
+﻿using Application.Communication.Responses;
 using Application.Exceptions;
 using Application.Interfaces;
 using Application.Services.Portifolio.Commands;
@@ -45,7 +44,7 @@ public class PortifolioService : IPortifolioService
 		return _mapper.Map<IEnumerable<PortifolioResponse>>(result);
 	}
 
-	public async Task<PortifolioResponse> Create(PortifolioRequest request)
+	public async Task<PortifolioResponse> Create(PortifolioCommand request)
 	{
 		await Validate(request);
 
@@ -56,15 +55,10 @@ public class PortifolioService : IPortifolioService
 		return _mapper.Map<PortifolioResponse>(response);
 	}
 
-	private async Task Validate(PortifolioRequest request)
+	private async Task Validate(PortifolioCommand request)
 	{
 		var validator = new PortifolioValidator();
 		var result = await validator.ValidateAsync(request);
-
-		var existsPortifolio = await _mediator.Send(request.Name);
-
-		if (existsPortifolio is null)
-			result.Errors.Add(new ValidationFailure("name", "Esse nome já existe"));
 
 		if (!result.IsValid)
 		{

@@ -1,7 +1,7 @@
 ﻿using Api.Middleware;
-using Application.Communication.Requests;
 using Application.Communication.Responses;
 using Application.Interfaces;
+using Application.Services.Portifolio.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -17,7 +17,7 @@ public class PortifolioController : TechChallengeController
 	}
 
 	[HttpPost]
-	public async Task<ActionResult<PortifolioResponse>> Create(PortifolioRequest portifolio)
+	public async Task<ActionResult<PortifolioResponse>> Create(PortifolioCommand portifolio)
 	{
 		await _service.Create(portifolio);
 

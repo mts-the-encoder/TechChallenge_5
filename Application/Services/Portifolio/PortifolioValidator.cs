@@ -1,9 +1,9 @@
-﻿using FluentValidation;
-using PortifolioRequest = Application.Communication.Requests.PortifolioRequest;
+﻿using Application.Services.Portifolio.Commands;
+using FluentValidation;
 
 namespace Application.Services.Portifolio;
 
-public class PortifolioValidator : AbstractValidator<PortifolioRequest>
+public class PortifolioValidator : AbstractValidator<PortifolioCommand>
 {
 	public PortifolioValidator()
 	{

@@ -1,9 +1,9 @@
-﻿using Application.Communication.Requests;
+﻿using Application.Services.User.Commands;
 using FluentValidation;
 
 namespace Application.Services.User;
 
-public class UserValidator : AbstractValidator<UserRequest>
+public class UserValidator : AbstractValidator<UserCreateCommand>
 {
 	public UserValidator()
 	{

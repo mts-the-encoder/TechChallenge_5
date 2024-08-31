@@ -1,10 +1,8 @@
-﻿using Application.Communication.Requests;
-using Application.Communication.Responses;
+﻿using Application.Communication.Responses;
 using Application.Exceptions;
 using Application.Interfaces;
 using Application.Services.Ativo.Commands;
 using Application.Services.Ativo.Queries;
-using Application.Services.Transacao.Queries;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -23,7 +21,7 @@ public class AtivoService : IAtivoService
 		_mapper = mapper;
 	}
 
-	public async Task<AtivoResponse> Create(AtivoRequest request)
+	public async Task<AtivoResponse> Create(AtivoCommand request)
 	{
 		await Validate(request);
 
@@ -56,7 +54,7 @@ public class AtivoService : IAtivoService
 		return _mapper.Map<IEnumerable<AtivoResponse>>(result);
 	}
 
-	private async Task Validate(AtivoRequest request)
+	private async Task Validate(AtivoCommand request)
 	{
 		var validator = new AtivoValidator();
 		var result = await validator.ValidateAsync(request);
