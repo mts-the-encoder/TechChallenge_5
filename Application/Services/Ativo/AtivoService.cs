@@ -54,6 +54,13 @@ public class AtivoService : IAtivoService
 		return _mapper.Map<IEnumerable<AtivoResponse>>(result);
 	}
 
+	public async Task<AtivoResponse> Update(AtivoUpdateCommand request)
+	{
+		var response = await _mediator.Send(request);
+
+		return _mapper.Map<AtivoResponse>(response);
+	}
+
 	private async Task Validate(AtivoCommand request)
 	{
 		var validator = new AtivoValidator();

@@ -33,4 +33,11 @@ public class AtivoRepository : IAtivoRepository
 			.AsNoTracking()
 			.FirstOrDefaultAsync(x => x.Id.Equals(id));
 	}
+
+	public async ValueTask<Ativo> UpdateAsync(Ativo ativo)
+	{
+		_ctx.Ativo.Update(ativo);
+		await _ctx.SaveChangesAsync();
+		return ativo;
+	}
 }

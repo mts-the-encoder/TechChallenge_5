@@ -34,6 +34,8 @@ public class AutoMapperConfig : Profile
 		CreateMap<AtivoCommand, Ativo>().ReverseMap();
 		CreateMap<AtivoResponse, Ativo>().ReverseMap();
 		CreateMap<AtivoResponse, AtivoCreateCommand>().ReverseMap();
+		CreateMap<AtivoCommand, AtivoUpdateCommand>().ReverseMap();
+		CreateMap<Ativo, AtivoUpdateCommand>().ReverseMap();
 		CreateMap<AtivoCreateCommand, Ativo>().ReverseMap();
 
 		//Transacao
