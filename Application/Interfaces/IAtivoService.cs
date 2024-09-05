@@ -10,4 +10,5 @@ public interface IAtivoService
 	Task<AtivoResponse> GetById(Guid id);
 	Task<IEnumerable<AtivoResponse>> GetAll();
 	Task<AtivoResponse> Update(AtivoUpdateCommand ativo);
+	Task Delete(Guid id);
 }

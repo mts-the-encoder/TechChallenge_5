@@ -8,4 +8,5 @@ public interface IAtivoRepository
 	ValueTask<IEnumerable<Ativo>> GetAll();
 	ValueTask<Ativo> GetById(Guid id);
 	ValueTask<Ativo> UpdateAsync(Ativo ativo);
+	ValueTask<Ativo> RemoveAsync(Ativo ativo);
 }

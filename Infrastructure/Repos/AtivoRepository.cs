@@ -40,4 +40,11 @@ public class AtivoRepository : IAtivoRepository
 		await _ctx.SaveChangesAsync();
 		return ativo;
 	}
+
+	public async ValueTask<Ativo> RemoveAsync(Ativo ativo)
+	{
+		_ctx.Ativo.Remove(ativo);
+		await _ctx.SaveChangesAsync();
+		return ativo;
+	}
 }

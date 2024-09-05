@@ -32,6 +32,14 @@ public class AtivoController : TechChallengeController
 		return Ok(response);
 	}
 
+	[HttpDelete("{id}")]
+	public async Task<ActionResult> Delete(Guid id)
+	{
+		await _service.Delete(id);
+
+		return Ok();
+	}
+
 	[HttpGet("{id}")]
 	public async Task<ActionResult<AtivoResponse>> GetById(Guid id)
 	{

@@ -61,6 +61,13 @@ public class AtivoService : IAtivoService
 		return _mapper.Map<AtivoResponse>(response);
 	}
 
+	public async Task Delete(Guid id)
+	{
+		var ativo = new AtivoRemoveCommand(id);
+
+		await _mediator.Send(ativo);
+	}
+
 	private async Task Validate(AtivoCommand request)
 	{
 		var validator = new AtivoValidator();
