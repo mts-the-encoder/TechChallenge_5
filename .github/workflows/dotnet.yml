@@ -2,29 +2,37 @@ name: .NET
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+
     - name: Restore dependencies
       run: dotnet restore
+
     - name: Build
       run: dotnet build --no-restore
+
     - name: Test
-      run: dotnet test --no-build --verbosity normal --parallel --collect-code-coverage
-    - name: Publish code coverage results
+      run: dotnet test --no-build --verbosity normal
+
+    - name: Publish Test Results
+      if: always()  # Ensures that results are published even if tests fail
       uses: actions/upload-artifact@v3
       with:
-        name: code-coverage
-        path: .coverage/coverage.json
+        name: test-results
+        path: '**/TestResults/*.xml'  # Adjust the path based on your test result output
