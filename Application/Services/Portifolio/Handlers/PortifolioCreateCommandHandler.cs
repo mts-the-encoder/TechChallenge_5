@@ -1,7 +1,9 @@
-﻿using Application.Services.Portifolio.Commands;
+﻿using Application.Exceptions;
+using Application.Services.Portifolio.Commands;
 using AutoMapper;
 using Domain.Repositories;
 using MediatR;
+using Serilog;
 
 namespace Application.Services.Portifolio.Handlers;
 
@@ -18,10 +20,31 @@ public class PortifolioCreateCommandHandler : IRequestHandler<PortifolioCreateCo
 
     public async Task<Domain.Entities.Portifolio> Handle(PortifolioCreateCommand request, CancellationToken cancellationToken)
     {
-        var portifolio = _mapper.Map<Domain.Entities.Portifolio>(request);
+	    await Validate(request);
+
+		var portifolio = _mapper.Map<Domain.Entities.Portifolio>(request);
 
         await _repository.Create(portifolio);
 
         return portifolio;
+    }
+
+    private async Task Validate(PortifolioCreateCommand request)
+    {
+	    var validator = new PortifolioValidator();
+	    var result = await validator.ValidateAsync(request);
+
+	    if (!result.IsValid)
+	    {
+		    var errorMessages = result.Errors
+			    .Select(error => error.ErrorMessage).ToList();
+
+		    var concatenatedErrors = string.Join("\n", errorMessages);
+
+		    Log.ForContext("UserId", request.UserId)
+			    .Error($"{concatenatedErrors}");
+
+		    throw new ValidationErrorsException(errorMessages);
+	    }
     }
 }
