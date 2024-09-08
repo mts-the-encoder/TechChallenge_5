@@ -27,14 +27,8 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
 
-    - name: Test with coverage
-      run: dotnet test --no-build --collect:"XPlat Code Coverage" --verbosity normal
-
-    - name: Report Code Coverage
-      uses: codecov/codecov-action@v3
-      with:
-        files: '**/TestResults/**/*.xml'
-        fail_ci_if_error: true  
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
 
     - name: Publish Test Results
       if: always()  
