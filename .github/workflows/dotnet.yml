@@ -27,12 +27,18 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
 
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Test with coverage
+      run: dotnet test --no-build --collect:"XPlat Code Coverage" --verbosity normal
+
+    - name: Report Code Coverage
+      uses: codecov/codecov-action@v3
+      with:
+        files: '**/TestResults/**/*.xml'
+        fail_ci_if_error: true  
 
     - name: Publish Test Results
-      if: always()  # Ensures that results are published even if tests fail
+      if: always()  
       uses: actions/upload-artifact@v3
       with:
         name: test-results
-        path: '**/TestResults/*.xml'  # Adjust the path based on your test result output
+        path: '**/TestResults/*.xml'  
