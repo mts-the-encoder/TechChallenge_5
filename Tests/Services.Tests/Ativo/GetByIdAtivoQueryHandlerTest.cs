@@ -1,6 +1,6 @@
-﻿using Application.Exceptions;
-using Application.Services.Ativo.Commands;
+﻿using Application.Services.Ativo.Commands;
 using Application.Services.Ativo.Handlers;
+using Application.Services.Ativo.Queries;
 using FluentAssertions;
 using Tests.Utils.Entities;
 using Tests.Utils.Mapper;
@@ -8,10 +8,10 @@ using Tests.Utils.Repositories;
 
 namespace Tests.Services.Tests.Ativo;
 
-public class AtivoUpdateCommandHandlerTest
+public class GetByIdAtivoQueryHandlerTest
 {
 	[Fact]
-	private async Task Should_Throw_Exception()
+	private async Task Should_Create()
 	{
 		var ativo = AtivoBuilder.Build();
 
@@ -24,13 +24,11 @@ public class AtivoUpdateCommandHandlerTest
 
 		var result = await handler.Handle(ativoCommand, default);
 
-		result.Codigo = "HGLG11";
-		var updateCommand = mapper.Map<AtivoUpdateCommand>(result);
+		var query = new GetAtivoByIdQuery(result.Id);
+		var getHandler = new GetAtivoByIdQueryHandler(repo);
 
-		var handlerUpdate = new AtivoUpdateCommandHandler(repo, mapper);
+		var action = async () => { await getHandler.Handle(query, default); };
 
-		var action = async () => { await handlerUpdate.Handle(updateCommand, default); };
-
-		await action.Should().ThrowAsync<ValidationErrorsException>();
+		await action.Should().NotThrowAsync();
 	}
 }
