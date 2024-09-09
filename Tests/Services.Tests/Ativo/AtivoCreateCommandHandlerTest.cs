@@ -1,8 +1,6 @@
 ﻿using Application.Exceptions;
 using Application.Services.Ativo.Commands;
 using Application.Services.Ativo.Handlers;
-using Application.Services.Portifolio.Commands;
-using Application.Services.Portifolio.Handlers;
 using FluentAssertions;
 using Tests.Utils.Entities;
 using Tests.Utils.Mapper;
@@ -16,13 +14,6 @@ public class AtivoCreateCommandHandlerTest
 	private async Task Should_Create()
 	{
 		var ativo = AtivoBuilder.Build();
-
-		var command = new AtivoCommand()
-		{
-			Name = ativo.Name,
-			TipoAtivo = ativo.TipoAtivo,
-			Codigo = ativo.Codigo
-		};
 
 		var repo = AtivoRepositoryBuilder.Instance().Build();
 		var mapper = MapperBuilder.Instance();
@@ -50,5 +41,45 @@ public class AtivoCreateCommandHandlerTest
 		var action = async () => { await handler.Handle(command, default); };
 
 		await action.Should().ThrowAsync<ValidationErrorsException>();
+	}
+
+	[Fact]
+	private async Task Should_Throw_Exception_Code_Null()
+	{
+		var ativo = AtivoBuilder.Build();
+		ativo.Codigo = string.Empty;
+
+		var repo = AtivoRepositoryBuilder.Instance().Build();
+		var mapper = MapperBuilder.Instance();
+
+		var ativoCommand = mapper.Map<AtivoCreateCommand>(ativo);
+
+		var handler = new AtivoCreateCommandHandler(repo, mapper);
+
+		var action = async () => { await handler.Handle(ativoCommand, default); };
+
+		await action.Should().ThrowAsync<ValidationErrorsException>();
+
+		ativoCommand.Codigo.Should().BeNullOrWhiteSpace();
+	}
+
+	[Fact]
+	private async Task Should_Throw_Exception_Name_Null()
+	{
+		var ativo = AtivoBuilder.Build();
+		ativo.Name = string.Empty;
+
+		var repo = AtivoRepositoryBuilder.Instance().Build();
+		var mapper = MapperBuilder.Instance();
+
+		var ativoCommand = mapper.Map<AtivoCreateCommand>(ativo);
+
+		var handler = new AtivoCreateCommandHandler(repo, mapper);
+
+		var action = async () => { await handler.Handle(ativoCommand, default); };
+
+		await action.Should().ThrowAsync<ValidationErrorsException>();
+
+		ativoCommand.Name.Should().BeNullOrWhiteSpace();
 	}
 }

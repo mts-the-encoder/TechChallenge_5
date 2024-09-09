@@ -12,7 +12,7 @@ public class TransacaoBuilder
 			.RuleFor(x => x.PortifolioId, _ => portifolio.Id)
 			.RuleFor(x => x.AtivoId, _ => ativo.Id)
 			.RuleFor(x => x.Price, f => f.Random.Float(6, 600))
-			.RuleFor(x => x.Quantity, f => f.Random.Int(1, 50));
+			.RuleFor(x => x.Quantity, f => f.Random.Int(2, 50));
 
 		return transacao;
 	}
